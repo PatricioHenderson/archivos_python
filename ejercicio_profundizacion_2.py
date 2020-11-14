@@ -11,11 +11,12 @@ Programa creado para que practiquen los conocimietos
 adquiridos durante la semana
 '''
 
-__author__ = "Inove Coding School"
-__email__ = "alumnos@inove.com.ar"
-__version__ = "1.2"
+__author__ = "Patricio Henderson"
+__email__ = "patriciohenderson@hotmail.com"
+__version__ = "1.3"
 
-
+import re
+import csv
 def ironman():
     print("Ahora sí! buena suerte :)")
 
@@ -96,8 +97,76 @@ def ironman():
     de Python que resuelva este problema.
 
     '''
+def multiplicador (deporte):
+    
+    try:
+
+        deporte = str(deporte)
+        deporte = deporte.split(":")
+        deporte = int(deporte[0])*3600+int(deporte[1])*60+ (int(deporte[2]))
+        return deporte
+    
+    except:
+        pass
+
+
+with open ("Ironman.csv") as fo:
+        
+        archivo = list(csv.DictReader(fo))
+        len_reader = len(archivo)
+        #Abrimos el archivo y sacamos el largo
+        cantidad_corredores_mpro = 0
+        mas_swim_mpro = 0
+        mas_bike_mpro = 0
+        mas_run_mpro = 0
+        
+
+    
+        for i in range(len_reader):
+            #iteramos todo el archivo
+
+            linea = archivo[i]
+            division = linea.get("Division")
+            swim = linea.get("Swim")
+            bike = linea.get("Bike")
+            run = linea.get("Run") 
+
+            segundos_swim = multiplicador(swim)
+            segundos_bike = multiplicador(bike)
+            segundos_run = multiplicador(run)
+
+            if division == "MPRO"  :
+                try :
+                    
+                    
+
+
+                    cantidad_corredores_mpro += 1
+                    #Contamos cantidad de corredores MPRO y los almacenamos 
+
+                    if mas_swim_mpro is None or segundos_swim > mas_swim_mpro:
+                        mas_swim_mpro = segundos_swim 
+                    #Buscamos al que mas tiempo nado
+
+
+                    if mas_bike_mpro is None or segundos_bike > mas_bike_mpro:
+                        mas_bike_mpro = segundos_bike
+                    #buscamos al que más tiempo pedaleo
+
+            
+                    if mas_run_mpro is None or segundos_run > mas_run_mpro:
+                        mas_run_mpro = segundos_run
+                    #Buscamos al que más tiempo  corrio
+                except:
+                    pass
+            
+        print(mas_swim_mpro, mas_bike_mpro, mas_run_mpro)
+               
+              
 
 
 if __name__ == '__main__':
     print("Ejercicios de práctica extra")
+    
     ironman()
+    
